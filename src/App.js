@@ -1,23 +1,44 @@
-import logo from './logo.svg';
-import './App.css';
+import React ,{useState} from 'react';
+import Header from './Header';
+import  FAQ from './Faq'
 
 function App() {
+
+  const [faqs,setfaqs]=useState([
+    {
+      question:'how many tourist visit in a year?',
+      answer:'Around 1 million ',
+      open:false
+    },
+    {
+      question:'which seasopn does tourist mostly prefer to come?',
+      answer:'october or end of year',
+      open:false
+    }
+  ]);
+
+const toggleFAQ = index =>{
+  setfaqs(faqs.map((faq,i)=>{
+    if(i=== index){
+      faq.open= !faq.open
+    }else{
+      faq.open=false;
+    }
+    return faq;
+  }))
+}
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Header/>
+      <div className="faqs">
+        {faqs.map((faq,i)=>(
+          <div>
+            <FAQ faq={faq} index={i} toggleFAQ={toggleFAQ}/>
+          </div>
+        ))}
+
+      </div>
     </div>
   );
 }
